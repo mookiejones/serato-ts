@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "dist": true,
+        ".github":true
+    },
+    "jest.useDashedArgs": true,
+    "jest.debugMode": true,
+    "jest.jestCommandLine": "yarn test"
+}

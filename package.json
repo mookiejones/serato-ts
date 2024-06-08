@@ -1,14 +1,21 @@
 {
   "name": "seratojs",
   "version": "3.2.0",
-  "description": "Manage Serato Crates programatically via NodeJS.",
+  "description": "Manage Serato Crates programatically via NodeJS. Direct Port of https://github.com/mookiejones/serato-ts.git",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "testCoverage": "jest --coverage",
+    "testCache": "jest --no-cache",
+    "clean": "rimraf ./dist && rimraf ./coverage",
+    "build": "npx tsc",
+    "package": "ncc build --source-map --license licenses.txt",
+    "all": "npm run clean && npm run build &&  npm run package && npm test",
+    "pub": "npm version patch --force && npm publish --access=public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bcollazo/seratojs.git"
+    "url": "git+https://github.com/mookiejones/serato-ts.git"
   },
   "keywords": [
     "serato",
@@ -17,13 +24,29 @@
     "crates",
     "dj"
   ],
-  "author": "Bryan Collazo",
+  "author": "Charles Berman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bcollazo/seratojs/issues"
+    "url": "https://github.com/mookiejones/serato-ts/issues"
   },
-  "homepage": "https://github.com/bcollazo/seratojs#readme",
+  "homepage": "https://github.com/mookiejones/serato-ts#readme",
   "devDependencies": {
-    "jest": "^27.3.1"
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "@types/lodash": "^4.17.4",
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/parser": "^7.12.0",
+    "@vercel/ncc": "^0.38.1",
+    "binary-reader": "^0.1.2",
+    "chalk": "^5.3.0",
+    "chokidar": "^3.6.0",
+    "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "rimraf": "^5.0.7",
+    "ts-jest": "^29.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }

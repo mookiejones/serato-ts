@@ -2,9 +2,9 @@ const path = require("path");
 
 const INVALID_CHARACTERS_REGEX = /[^A-Za-z0-9_ ]/gi;
 
-const parse = function (contents) {
+const parse = function (contents:any) {
   // Find all 'ptrk' ocurrances
-  const indices = [];
+  const indices:any[] = [];
   for (let i = 0; i < contents.length; i++) {
     if (contents.slice(i, i + 4) === "ptrk") {
       indices.push(i);
@@ -12,7 +12,7 @@ const parse = function (contents) {
   }
 
   // Content in between these indices are the songs
-  const songs = [];
+  const songs:any[] = [];
   indices.forEach((value, index) => {
     const start = value + 9; // + 9 to skip the 'ptrk' itself and the bytes for size
     const isLast = index === indices.length - 1;
@@ -25,11 +25,11 @@ const parse = function (contents) {
   return songs;
 };
 
-const toSeratoString = function (string) {
-  return "\0" + string.split("").join("\0");
+const toSeratoString = function (value:string) {
+  return "\0" + value.split("").join("\0");
 };
 
-const intToHexbin = function (number) {
+const intToHexbin = function (number:number) {
   const hex = number.toString(16).padStart(8, "0");
   let ret = "";
   for (let idx of [0, 2, 4, 6]) {
@@ -39,12 +39,12 @@ const intToHexbin = function (number) {
   return ret;
 };
 
-const sanitizeFilename = function (filename) {
+const sanitizeFilename = function (filename:string) {
   return filename.replace(INVALID_CHARACTERS_REGEX, "-");
 };
 
 /** Second param for dependency injection testing */
-function removeDriveRoot(absoluteSongPath, platformParam = null) {
+function removeDriveRoot(absoluteSongPath:string, platformParam = null) {
   const platform = platformParam || process.platform;
   if (platform === "win32") {
     return absoluteSongPath.substring(3); // remove the C: or D: or ...
@@ -66,7 +66,7 @@ function removeDriveRoot(absoluteSongPath, platformParam = null) {
  *  /Volumes/SampleDrive/Some/Path.mp3 => /Volumes/SampleDrive
  *  D:\\Folder\\song.mp3 => D:\\
  */
-function selectExternalRoot(externalSongPath, platformParam = null) {
+function selectExternalRoot(externalSongPath:string, platformParam:NodeJS.Platform|null = null) {
   const platform = platformParam || process.platform;
   if (platform === "win32") {
     return path.parse(externalSongPath).root;
@@ -75,7 +75,7 @@ function selectExternalRoot(externalSongPath, platformParam = null) {
   }
 }
 
-function isFromExternalDrive(songPath, platformParam = null) {
+function isFromExternalDrive(songPath:string, platformParam:NodeJS.Platform|null = null) {
   const platform = platformParam || process.platform;
   return (
     (platform === "win32" && !songPath.startsWith("C:\\")) ||
@@ -83,7 +83,7 @@ function isFromExternalDrive(songPath, platformParam = null) {
   );
 }
 
-module.exports = {
+ export  {
   parse,
   removeDriveRoot,
   toSeratoString,

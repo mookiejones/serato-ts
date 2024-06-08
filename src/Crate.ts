@@ -28,7 +28,7 @@ class Crate {
     name:string;
     filename:string;
     songPaths:string[];
-    seratoFolder:string;
+    seratoFolder?:string|null;
     /**
      * Serato saves crates in all the drives from which songs
      * in the crate come from. When you create a seratojs.Crate
@@ -40,7 +40,7 @@ class Crate {
      * compatible with that drive. This is what we call 'location-aware'
      * crates.
      */
-    constructor(name:string, seratoFolder:string) {
+    constructor(name:string, seratoFolder?:string|null ) {
       // TODO: Make private
       this.name = sanitizeFilename(name);
       this.filename = this.name + ".crate";

@@ -44,7 +44,7 @@ const sanitizeFilename = function (filename:string) {
 };
 
 /** Second param for dependency injection testing */
-function removeDriveRoot(absoluteSongPath:string, platformParam = null) {
+function removeDriveRoot(absoluteSongPath:string, platformParam?:NodeJS.Platform|null ) {
   const platform = platformParam || process.platform;
   if (platform === "win32") {
     return absoluteSongPath.substring(3); // remove the C: or D: or ...
@@ -75,7 +75,7 @@ function selectExternalRoot(externalSongPath:string, platformParam:NodeJS.Platfo
   }
 }
 
-function isFromExternalDrive(songPath:string, platformParam:NodeJS.Platform|null = null) {
+function isFromExternalDrive(songPath:string, platformParam?:NodeJS.Platform|null ) {
   const platform = platformParam || process.platform;
   return (
     (platform === "win32" && !songPath.startsWith("C:\\")) ||

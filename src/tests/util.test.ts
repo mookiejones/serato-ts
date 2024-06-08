@@ -1,8 +1,8 @@
-const {
+import {
   sanitizeFilename,
   removeDriveRoot,
   isFromExternalDrive,
-} = require("../util");
+} from '../util';
 
 test("isFromExternalDrive", () => {
   expect(isFromExternalDrive("C:\\Users\\bcollazo", "win32")).toBe(false);

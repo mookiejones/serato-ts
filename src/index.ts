@@ -46,11 +46,8 @@ async function listCrates(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
   return allCrates;
 }
 
-
-const seratojs = {
-  Crate: Crate,
-  listCratesSync: listCratesSync,
-  listCrates: listCrates,
-};
-
-module.exports = seratojs;
+export {
+  Crate,
+  listCrates,
+  listCratesSync
+}; 

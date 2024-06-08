@@ -1,6 +1,7 @@
-const path = require("path");
 
-function externalPath(posixPath) {
+import path from 'path';
+
+function externalPath(posixPath:string) {
   if (process.platform === "win32") {
     return path.resolve("D:\\", posixPath);
   } else if (process.platform === "darwin") {
@@ -10,7 +11,7 @@ function externalPath(posixPath) {
   }
 }
 
-function localPath(posixPath) {
+function localPath(posixPath:string) {
   if (process.platform === "win32") {
     return path.resolve("C:\\", posixPath);
   } else if (process.platform === "darwin") {
@@ -20,7 +21,7 @@ function localPath(posixPath) {
   }
 }
 
-module.exports = {
+export {
   externalPath,
   localPath,
 };

@@ -1,8 +1,7 @@
-const os = require("os");
-const path = require("path");
-const fs = require("fs");
-
-const seratojs = require("../index");
+import os from 'os';
+import path from 'path';
+import * as fs from 'fs';
+import {listCratesSync,listCrates,Crate} from '../index'; 
 const { localPath, externalPath } = require("./utils");
 
 /**
@@ -13,7 +12,7 @@ const { localPath, externalPath } = require("./utils");
 const TEST_SERATO_FOLDER = path.join(".", "_TestSerato_");
 const TEST_SUBCRATES_FOLDER = path.join(TEST_SERATO_FOLDER, "Subcrates");
 
-function safelyDeleteSeratoFolder(folder) {
+function safelyDeleteSeratoFolder(folder:string) {
   const subCrateFolder = path.join(folder, "Subcrates");
   const files = fs.readdirSync(subCrateFolder);
   for (let filename of files) {
@@ -38,12 +37,12 @@ afterEach(() => {
 
 // ===== List crates
 test("list crates in sync", () => {
-  const crates = seratojs.listCratesSync([TEST_SERATO_FOLDER]);
+  const crates = listCratesSync([TEST_SERATO_FOLDER]);
   expect(crates.length).toBe(1);
 });
 
 test("async list crates and sync song paths", async () => {
-  const crates = await seratojs.listCrates([TEST_SERATO_FOLDER]);
+  const crates = await listCrates([TEST_SERATO_FOLDER]);
   expect(crates.length).toBe(1);
 
   const crate = crates[0];
@@ -74,7 +73,7 @@ test("async list crates and sync song paths", async () => {
 
 // ===== Save locations
 test("adding songs from a drive, saves it in drive", () => {
-  const crate = new seratojs.Crate("TestDriveCrate");
+  const crate = new Crate("TestDriveCrate");
   crate.addSong(externalPath("TestFolder/song1.mp3"));
   crate.addSong(externalPath("song2.mp3"));
 
@@ -84,7 +83,7 @@ test("adding songs from a drive, saves it in drive", () => {
 });
 
 test("adding songs from a drive and local disk, saves it in both", () => {
-  const crate = new seratojs.Crate("TestDriveCrate");
+  const crate = new Crate("TestDriveCrate");
   crate.addSong(externalPath("TestFolder/song1.mp3"));
   crate.addSong(localPath("/Users/bcollazo/Music/song2.mp3"));
 
@@ -95,7 +94,7 @@ test("adding songs from a drive and local disk, saves it in both", () => {
 });
 
 test("adding songs from local disk only, saves it Music folder _Serato_", () => {
-  const crate = new seratojs.Crate("TestDriveCrate");
+  const crate = new Crate("TestDriveCrate");
   crate.addSong("C:\\Users\\bcollazo\\Music\\folder\\song1.mp3");
   crate.addSong("C:\\Users\\bcollazo\\Music\\song2.mp3");
 
@@ -105,7 +104,7 @@ test("adding songs from local disk only, saves it Music folder _Serato_", () => 
 });
 
 test("new empty crate saves it Music folder _Serato_", () => {
-  const crate = new seratojs.Crate("TestDriveCrate");
+  const crate = new Crate("TestDriveCrate");
 
   const locations = crate.getSaveLocations();
   expect(locations.length).toBe(1);
@@ -113,7 +112,7 @@ test("new empty crate saves it Music folder _Serato_", () => {
 });
 
 test("if specify serato folder at creation, saving will use that one. no matter contents", () => {
-  const crate = new seratojs.Crate("TestDriveCrate", TEST_SERATO_FOLDER);
+  const crate = new Crate("TestDriveCrate", TEST_SERATO_FOLDER);
   crate.addSong("D:\\TestFolder\\song1.mp3");
   crate.addSong("C:\\Users\\bcollazo\\Music\\song2.mp3");
 
@@ -124,21 +123,21 @@ test("if specify serato folder at creation, saving will use that one. no matter 
 
 // ===== Save songs. Can mock and listing crates matches.
 test("IntegrationTest: create new crate, add songs, list crates, list songs", () => {
-  const crate = new seratojs.Crate(
+  const crate = new Crate(
     "ProgramaticallyCreatedCrate",
     TEST_SERATO_FOLDER
   );
   crate.addSong("C:\\Users\\bcollazo\\Music\\second_song.mp3");
   crate.saveSync(); // saves to C:\\
 
-  const crates = seratojs.listCratesSync([TEST_SERATO_FOLDER]);
+  const crates = listCratesSync([TEST_SERATO_FOLDER]);
   expect(crates.length).toBe(2);
   const songPaths = crate.getSongPathsSync();
   expect(songPaths.length).toBe(1);
 });
 
 test("IntegrationTest: async mac create new crate, add songs, list crates, list songs", async () => {
-  const crate = new seratojs.Crate(
+  const crate = new Crate(
     "ProgramaticallyCreatedCrate",
     TEST_SERATO_FOLDER
   );
@@ -146,7 +145,7 @@ test("IntegrationTest: async mac create new crate, add songs, list crates, list 
   crate.addSong("/Users/bcollazo/Music/second_song.mp3");
   await crate.save();
 
-  const crates = await seratojs.listCrates([TEST_SERATO_FOLDER]);
+  const crates = await listCrates([TEST_SERATO_FOLDER]);
   expect(crates.length).toBe(2);
   const songPaths = await crate.getSongPaths();
   expect(songPaths.length).toBe(2);
@@ -154,7 +153,7 @@ test("IntegrationTest: async mac create new crate, add songs, list crates, list 
 
 // ===== Read song lists
 test("read crate info", () => {
-  const crate = seratojs.listCratesSync([TEST_SERATO_FOLDER])[0];
+  const crate = listCratesSync([TEST_SERATO_FOLDER])[0];
   const songs = crate.getSongPathsSync();
 
   const baseFolder = localPath(
@@ -181,7 +180,7 @@ test("read crate info", () => {
 });
 
 test("async read song paths", async () => {
-  const crate = (await seratojs.listCrates([TEST_SERATO_FOLDER]))[0];
+  const crate = (await listCrates([TEST_SERATO_FOLDER]))[0];
   const songs = await crate.getSongPaths();
 
   const baseFolder = localPath(
@@ -208,7 +207,7 @@ test("async read song paths", async () => {
 });
 
 test("weird names dont break crate creation", async () => {
-  const newCrate = new seratojs.Crate(
+  const newCrate = new Crate(
     "2000-2010 HipHáp / Reggaeton!?",
     TEST_SERATO_FOLDER
   );

@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Reference the major version of a release
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      # Reference a specific version
+      - uses: actions/setup-node@v3     
       - run: npm ci
       - run: npm test
 
@@ -20,7 +20,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      # Reference the major version of a release
       - uses: actions/checkout@v4
+      # Reference a specific version
       - uses: actions/setup-node@v3
         with:
           node-version: 20

@@ -14,7 +14,7 @@
     "testCache": "jest --no-cache",
     "build:types": "node cli/bin/pbts --main --global protobuf --out index.d.ts src/ lib/aspromise/index.js lib/base64/index.js lib/codegen/index.js lib/eventemitter/index.js lib/float/index.js lib/fetch/index.js lib/inquire/index.js lib/path/index.js lib/pool/index.js lib/utf8/index.js",
     "package": "ncc build --source-map --license licenses.txt",
-    "all": "npm run clean && npm run build &&  npm run package && npm test",
+    "all": "npm run clean && npm run build && npm run package && npm test",
     "pub": "npm version patch --force && npm publish --access=public",
     "version": "node --version && npm --version && tsc --version"
   },

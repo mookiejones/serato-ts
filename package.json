@@ -3,15 +3,19 @@
   "version": "3.2.0",
   "description": "Manage Serato Crates programatically via NodeJS. Direct Port of https://github.com/mookiejones/serato-ts.git",
   "main": "index.js",
+  
   "scripts": {
-    "test": "jest",
-    "testCoverage": "jest --coverage",
-    "testCache": "jest --no-cache",
     "clean": "rimraf ./dist && rimraf ./coverage",
     "build": "npx tsc",
+    "test": "jest",
+    "test:ci":"npm run test",
+    "testCoverage": "jest --coverage",
+    "testCache": "jest --no-cache",
+    "build:types": "node cli/bin/pbts --main --global protobuf --out index.d.ts src/ lib/aspromise/index.js lib/base64/index.js lib/codegen/index.js lib/eventemitter/index.js lib/float/index.js lib/fetch/index.js lib/inquire/index.js lib/path/index.js lib/pool/index.js lib/utf8/index.js",
     "package": "ncc build --source-map --license licenses.txt",
     "all": "npm run clean && npm run build &&  npm run package && npm test",
-    "pub": "npm version patch --force && npm publish --access=public"
+    "pub": "npm version patch --force && npm publish --access=public",
+    "version": "node --version && npm --version && eslint --version && tsc --version"
   },
   "repository": {
     "type": "git",
@@ -49,5 +53,5 @@
     "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
-  }
+  } 
 }

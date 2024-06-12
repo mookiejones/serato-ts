@@ -2,11 +2,16 @@ import {
   sanitizeFilename,
   removeDriveRoot,
   isFromExternalDrive,
+  parse
 } from '../util';
+import path from 'path';
+import * as fs from 'fs';
 
+const WIN32="win32"
+ 
 test("isFromExternalDrive", () => {
-  expect(isFromExternalDrive("C:\\Users\\bcollazo", "win32")).toBe(false);
-  expect(isFromExternalDrive("D:\\Users\\bcollazo", "win32")).toBe(true);
+  expect(isFromExternalDrive("C:\\Users\\bcollazo", WIN32)).toBe(false);
+  expect(isFromExternalDrive("D:\\Users\\bcollazo", WIN32)).toBe(true);
   expect(isFromExternalDrive("/Users/bcollazo/song.mp3", "darwin")).toBe(false);
   expect(isFromExternalDrive("/Volumes/TestUsb/Music/song.mp3", "darwin")).toBe(
     true
@@ -28,13 +33,13 @@ describe("removeDriveRoot", () => {
 
   test("local windows path removes C:", () => {
     const fixture = "C:\\Users\\bcollazo\\Music";
-    const result = removeDriveRoot(fixture, "win32");
+    const result = removeDriveRoot(fixture, WIN32);
     expect(result).toBe("Users\\bcollazo\\Music");
   });
 
   test("external windows path removes D:", () => {
     const fixture = "D:\\Users\\bcollazo\\Music";
-    const result = removeDriveRoot(fixture, "win32");
+    const result = removeDriveRoot(fixture, WIN32);
     expect(result).toBe("Users\\bcollazo\\Music");
   });
 });

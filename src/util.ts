@@ -83,6 +83,15 @@ function isFromExternalDrive(songPath:string, platformParam?:NodeJS.Platform|nul
   );
 }
 
+
+export const  getSubcratesFolder=(seratoFolder:string=""):string =>{
+  return path.join(seratoFolder, "SubCrates");
+}
+export const buildCrateFilepath =(filename:string,seratoFolder:string):string =>{
+  const subcrateFolder = getSubcratesFolder(seratoFolder);
+  const filepath = path.join(subcrateFolder, filename);
+  return filepath;
+}
  export  {
   parse,
   removeDriveRoot,

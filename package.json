@@ -1,6 +1,6 @@
 {
   "name": "serato-ts",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Manage Serato Crates programatically via NodeJS. Direct Port of https://github.com/mookiejones/serato-ts.git",
   "main": "dist/index.js",
   "scripts": {
@@ -54,5 +54,9 @@
     "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
   }
 }

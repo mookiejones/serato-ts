@@ -1,17 +1,17 @@
-import * as fs from 'fs';
-import util from 'util';
-import os from 'os';
-import path from 'path';
-import Crate from './Crate';
- 
+import * as fs from "fs";
+import util from "util";
+import os from "os";
+import path from "path";
+import Crate from "./Crate";
+
 // Singleton for Serato Folder Path (I doubt it'll change during runtime)
 const PLATFORM_DEFAULT_SERATO_FOLDER = path.join(
   os.homedir(),
   "Music",
-  "_Serato_"
+  "_Serato_",
 );
 
-function getSubcratesFolder(seratoFolder:string="") {
+function getSubcratesFolder(seratoFolder: string = "") {
   return path.join(seratoFolder, "SubCrates");
 }
 
@@ -20,7 +20,7 @@ function getSubcratesFolder(seratoFolder:string="") {
  * of all of these.
  */
 function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
-  const allCrates:Crate[] = [];
+  const allCrates: Crate[] = [];
   seratoFolders.forEach((seratoFolder) => {
     const subcratesFolder = getSubcratesFolder(seratoFolder);
     const crates = fs.readdirSync(subcratesFolder).map((x) => {
@@ -33,7 +33,7 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
 }
 
 async function listCrates(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
-  const allCrates:Crate[] = [];
+  const allCrates: Crate[] = [];
   for (const seratoFolder of seratoFolders) {
     const subcratesFolder = getSubcratesFolder(seratoFolder);
     const files = await util.promisify(fs.readdir)(subcratesFolder);
@@ -46,8 +46,4 @@ async function listCrates(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
   return allCrates;
 }
 
-export {
-  Crate,
-  listCrates,
-  listCratesSync
-}; 
+export { Crate, listCrates, listCratesSync };

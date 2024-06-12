@@ -1,7 +1,6 @@
+import path from "path";
 
-import path from 'path';
-
-function externalPath(posixPath:string) {
+function externalPath(posixPath: string) {
   if (process.platform === "win32") {
     return path.resolve("D:\\", posixPath);
   } else if (process.platform === "darwin") {
@@ -11,7 +10,7 @@ function externalPath(posixPath:string) {
   }
 }
 
-function localPath(posixPath:string) {
+function localPath(posixPath: string) {
   if (process.platform === "win32") {
     return path.resolve("C:\\", posixPath);
   } else if (process.platform === "darwin") {
@@ -21,7 +20,4 @@ function localPath(posixPath:string) {
   }
 }
 
-export {
-  externalPath,
-  localPath,
-};
+export { externalPath, localPath };

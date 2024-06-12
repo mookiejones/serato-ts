@@ -4,6 +4,8 @@
   "description": "Manage Serato Crates programatically via NodeJS. Direct Port of https://github.com/mookiejones/serato-ts.git",
   "main": "dist/index.js",
   "scripts": {
+    "format:check": "prettier --list-different .",
+    "format": "prettier --write .",
     "clean": "rimraf ./dist && rimraf ./coverage",
     "build": "npx tsc",
     "test": "jest",

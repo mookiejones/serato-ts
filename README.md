@@ -1,6 +1,5 @@
 # seratots
 
-
 Manage Serato Crates Programatically in NodeJS.
 
 ## Installing
@@ -12,9 +11,7 @@ npm install seratots
 ## Usage
 
 ```javascript
-import seratoTs from 'serato-ts';
-
-
+import seratoTs from "serato-ts";
 
 // List all crates defined by user.
 const crates = seratoTs.listCratesSync();

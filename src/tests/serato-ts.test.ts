@@ -1,7 +1,7 @@
-import os from 'os';
-import path from 'path';
-import * as fs from 'fs';
-import {listCratesSync,listCrates,Crate} from '../index'; 
+import os from "os";
+import path from "path";
+import * as fs from "fs";
+import { listCratesSync, listCrates, Crate } from "../index";
 const { localPath, externalPath } = require("./utils");
 
 /**
@@ -12,7 +12,7 @@ const { localPath, externalPath } = require("./utils");
 const TEST_SERATO_FOLDER = path.join(".", "_TestSerato_");
 const TEST_SUBCRATES_FOLDER = path.join(TEST_SERATO_FOLDER, "Subcrates");
 
-function safelyDeleteSeratoFolder(folder:string) {
+function safelyDeleteSeratoFolder(folder: string) {
   const subCrateFolder = path.join(folder, "Subcrates");
   const files = fs.readdirSync(subCrateFolder);
   for (let filename of files) {
@@ -27,7 +27,7 @@ beforeEach(() => {
   fs.mkdirSync(TEST_SUBCRATES_FOLDER);
   fs.copyFileSync(
     path.join(".", "Serato Demo Tracks.crate"),
-    path.join(TEST_SUBCRATES_FOLDER, "Serato Demo Tracks.crate")
+    path.join(TEST_SUBCRATES_FOLDER, "Serato Demo Tracks.crate"),
   );
 });
 
@@ -49,7 +49,7 @@ test("async list crates and sync song paths", async () => {
   const songs = crate.getSongPathsSync();
 
   const baseFolder = localPath(
-    "/Users/bcollazo/Music/_Serato_/Imported/Serato Demo Tracks"
+    "/Users/bcollazo/Music/_Serato_/Imported/Serato Demo Tracks",
   );
   expect(crate.name).toBe("Serato Demo Tracks");
   expect(songs).toEqual([
@@ -58,15 +58,15 @@ test("async list crates and sync song paths", async () => {
     path.resolve(baseFolder, "03 - House Track Serato House Starter Pack.mp3"),
     path.resolve(
       baseFolder,
-      "04 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "04 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
     path.resolve(
       baseFolder,
-      "05 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "05 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
     path.resolve(
       baseFolder,
-      "06 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "06 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
   ]);
 });
@@ -123,10 +123,7 @@ test("if specify serato folder at creation, saving will use that one. no matter 
 
 // ===== Save songs. Can mock and listing crates matches.
 test("IntegrationTest: create new crate, add songs, list crates, list songs", () => {
-  const crate = new Crate(
-    "ProgramaticallyCreatedCrate",
-    TEST_SERATO_FOLDER
-  );
+  const crate = new Crate("ProgramaticallyCreatedCrate", TEST_SERATO_FOLDER);
   crate.addSong("C:\\Users\\bcollazo\\Music\\second_song.mp3");
   crate.saveSync(); // saves to C:\\
 
@@ -137,10 +134,7 @@ test("IntegrationTest: create new crate, add songs, list crates, list songs", ()
 });
 
 test("IntegrationTest: async mac create new crate, add songs, list crates, list songs", async () => {
-  const crate = new Crate(
-    "ProgramaticallyCreatedCrate",
-    TEST_SERATO_FOLDER
-  );
+  const crate = new Crate("ProgramaticallyCreatedCrate", TEST_SERATO_FOLDER);
   crate.addSong("Users/bcollazo/Music/song.mp3");
   crate.addSong("/Users/bcollazo/Music/second_song.mp3");
   await crate.save();
@@ -157,7 +151,7 @@ test("read crate info", () => {
   const songs = crate.getSongPathsSync();
 
   const baseFolder = localPath(
-    "/Users/bcollazo/Music/_Serato_/Imported/Serato Demo Tracks"
+    "/Users/bcollazo/Music/_Serato_/Imported/Serato Demo Tracks",
   );
   expect(crate.name).toBe("Serato Demo Tracks");
   expect(songs).toEqual([
@@ -166,15 +160,15 @@ test("read crate info", () => {
     path.resolve(baseFolder, "03 - House Track Serato House Starter Pack.mp3"),
     path.resolve(
       baseFolder,
-      "04 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "04 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
     path.resolve(
       baseFolder,
-      "05 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "05 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
     path.resolve(
       baseFolder,
-      "06 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "06 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
   ]);
 });
@@ -184,7 +178,7 @@ test("async read song paths", async () => {
   const songs = await crate.getSongPaths();
 
   const baseFolder = localPath(
-    "/Users/bcollazo/Music/_Serato_/Imported/Serato Demo Tracks"
+    "/Users/bcollazo/Music/_Serato_/Imported/Serato Demo Tracks",
   );
   expect(crate.name).toBe("Serato Demo Tracks");
   expect(songs).toEqual([
@@ -193,15 +187,15 @@ test("async read song paths", async () => {
     path.resolve(baseFolder, "03 - House Track Serato House Starter Pack.mp3"),
     path.resolve(
       baseFolder,
-      "04 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "04 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
     path.resolve(
       baseFolder,
-      "05 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "05 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
     path.resolve(
       baseFolder,
-      "06 - Hip Hop Track Serato Hip Hop Starter Pack.mp3"
+      "06 - Hip Hop Track Serato Hip Hop Starter Pack.mp3",
     ),
   ]);
 });
@@ -209,7 +203,7 @@ test("async read song paths", async () => {
 test("weird names dont break crate creation", async () => {
   const newCrate = new Crate(
     "2000-2010 HipHáp / Reggaeton!?",
-    TEST_SERATO_FOLDER
+    TEST_SERATO_FOLDER,
   );
   await newCrate.save();
 });

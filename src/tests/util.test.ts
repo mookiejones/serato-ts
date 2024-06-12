@@ -2,19 +2,19 @@ import {
   sanitizeFilename,
   removeDriveRoot,
   isFromExternalDrive,
-  parse
-} from '../util';
-import path from 'path';
-import * as fs from 'fs';
+  parse,
+} from "../util";
+import path from "path";
+import * as fs from "fs";
 
-const WIN32="win32"
- 
+const WIN32 = "win32";
+
 test("isFromExternalDrive", () => {
   expect(isFromExternalDrive("C:\\Users\\bcollazo", WIN32)).toBe(false);
   expect(isFromExternalDrive("D:\\Users\\bcollazo", WIN32)).toBe(true);
   expect(isFromExternalDrive("/Users/bcollazo/song.mp3", "darwin")).toBe(false);
   expect(isFromExternalDrive("/Volumes/TestUsb/Music/song.mp3", "darwin")).toBe(
-    true
+    true,
   );
 });
 
@@ -55,10 +55,10 @@ test("util filename sanitazion", () => {
   expect(sanitizeFilename("Foo_BAR.bAz!")).toBe("Foo_BAR-bAz-");
   expect(sanitizeFilename("!Viva Latino!")).toBe("-Viva Latino-");
   expect(sanitizeFilename("2000-2010 HipHop / Reggae")).toBe(
-    "2000-2010 HipHop - Reggae"
+    "2000-2010 HipHop - Reggae",
   );
   expect(sanitizeFilename("Activáera!?")).toBe("Activ-era--");
   expect(sanitizeFilename("2000-2010 HipHáp / Reggaeton!?")).toBe(
-    "2000-2010 HipH-p - Reggaeton--"
+    "2000-2010 HipH-p - Reggaeton--",
   );
 });

@@ -2,7 +2,7 @@ import * as fs from "fs";
 import util from "util";
 import os from "os";
 import path from "path";
-import {ICrateType} from './ICrateType'
+import { ICrateType } from "./ICrateType";
 import {
   parse,
   toSeratoString,
@@ -22,7 +22,7 @@ const PLATFORM_DEFAULT_SERATO_FOLDER = path.join(
   "Music",
   "_Serato_",
 );
-export interface ICrateData extends ICrateType{
+export interface ICrateData extends ICrateType {
   /**
    * @description Name of Crate
    */

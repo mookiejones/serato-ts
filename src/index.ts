@@ -2,8 +2,8 @@ import * as fs from "fs";
 import util from "util";
 import os from "os";
 import path from "path";
-import Crate from "./Crate";
-
+import Crate , { ICrateData } from "./Crate";
+import { ICrateType } from "./ICrateType";
 // Singleton for Serato Folder Path (I doubt it'll change during runtime)
 const PLATFORM_DEFAULT_SERATO_FOLDER = path.join(
   os.homedir(),
@@ -46,4 +46,7 @@ async function listCrates(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
   return allCrates;
 }
 
-export { Crate, listCrates, listCratesSync };
+export {ICrateData,ICrateType};
+const Serato = { Crate, listCrates, listCratesSync } ;
+export default Serato;
+ 

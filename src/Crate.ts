@@ -22,10 +22,59 @@ const PLATFORM_DEFAULT_SERATO_FOLDER = path.join(
   "Music",
   "_Serato_",
 );
-class Crate {
+export interface ICrateData {
+  /**
+   * @description Name of Crate
+   */
   name: string;
+
+  /**
+   * @description Filename for crate
+   */
   filename: string;
+
+  /**
+   *@description Song Pahts
+   */
   songPaths: string[];
+
+  /**
+   * @description Save locations
+   */
+  saveLocations?: string[] | null;
+  /**
+   * Serato folder
+   */
+  seratoFolder?: string | null;
+}
+
+/**
+ * @class Crate
+ */
+class Crate implements ICrateData {
+  /**
+   * @description Name of Crate
+   */
+  name: string;
+
+  /**
+   * @description Filename for crate
+   */
+  filename: string;
+
+  /**
+   *@description Song Pahts
+   */
+  songPaths: string[];
+
+  /**
+   * @description Save locations
+   */
+  saveLocations?: string[] | null;
+
+  /**
+   * Serato folder
+   */
   seratoFolder?: string | null;
   /**
    * Serato saves crates in all the drives from which songs
@@ -45,6 +94,12 @@ class Crate {
     this.songPaths = [];
 
     this.seratoFolder = seratoFolder; // To override for testing...
+  }
+
+  getData(): ICrateData {
+    this.saveLocations = this.getSaveLocations();
+    this.songPaths = this.getSongPathsSync();
+    return this;
   }
 
   /**

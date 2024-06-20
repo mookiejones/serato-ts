@@ -1,5 +1,4 @@
-
-export type ICrate ={
+export type ICrate = {
   /**
    * @description Name of Crate
    */
@@ -23,14 +22,12 @@ export type ICrate ={
    * Serato folder
    */
   seratoFolder?: string | null;
-}
+};
 
-
-const crate:ICrate = {
+const crate: ICrate = {
   name: "",
   filename: "",
-  songPaths: []
-}
+  songPaths: [],
+};
 
 export type ICrateType = typeof crate;
- 

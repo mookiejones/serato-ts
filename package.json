@@ -1,6 +1,6 @@
 {
   "name": "serato-ts",
-  "version": "3.2.11",
+  "version": "3.2.12",
   "description": "Manage Serato Crates programatically via NodeJS. Direct Port of https://github.com/mookiejones/serato-ts.git",
   "main": "dist/index.js",
   "scripts": {
@@ -13,8 +13,8 @@
     "testCoverage": "jest --coverage",
     "testCache": "jest --no-cache",
     "package": "ncc build --source-map --license licenses.txt",
-    "all": "npm run clean && npm run format && npm run build && npm run package && npm test && npm pub && npm publish",
-    "pub": "npm version patch --force && npm publish --access=public",
+    "all": "npm run clean && npm run format && npm run build && npm run package && npm test && npm pub",
+    "pub": "npm version patch --force && npm publish",
     "version": "node --version && npm --version && tsc --version"
   },
   "repository": {
